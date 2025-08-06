@@ -100,3 +100,6 @@ InitTestScene*.unity*
 
 # Mac Specific File
 .DS_Store
+
+# Ignore VSCode settings
+.vscode/
