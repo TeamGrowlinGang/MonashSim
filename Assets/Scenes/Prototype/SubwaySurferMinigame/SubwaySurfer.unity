@@ -182,10 +182,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480be6298a412454b82eae50dcbedfda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accellerationFactor: 15
-  turnFactor: 2
+  accellerationFactor: 5
+  turnFactor: 3
   skidPrefab: {fileID: 2943449297411493569, guid: 0a84ba5374728d1409ce1744cb5e569d, type: 3}
   wheelPosition: {fileID: 390123039}
+  minSpeed: 2
+  stampSpacing: 0
 --- !u!50 &1251253910
 Rigidbody2D:
   serializedVersion: 5
