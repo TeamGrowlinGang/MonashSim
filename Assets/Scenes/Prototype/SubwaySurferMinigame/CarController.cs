@@ -4,9 +4,11 @@ using UnityEngine;
 public class CarController : MonoBehaviour
 {
     [Header("Car Settings")]
-    public float accellerationFactor = 30.0f;
-    public float turnFactor = 3.5f;
-
+    public float accellerationFactor;
+    public float brakeFactor;
+    public float turnFactor;
+    public bool isBraking = false;
+    
     [Header("Skid Settings")]
     public GameObject skidPrefab;       // prefab with SpriteRenderer
     public Transform wheelPosition;     // empty object at the wheel
@@ -21,6 +23,9 @@ public class CarController : MonoBehaviour
 
     void Start()
     {
+        accellerationFactor = 10.0f;
+        brakeFactor = 10.0f;
+        turnFactor = 3.0f;
         rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -28,6 +33,7 @@ public class CarController : MonoBehaviour
     {
         ApplyEngineForce();
         ApplySteering();
+        ApplyBraking();
         HandleSkidMarks();
     }
 
@@ -42,22 +48,40 @@ public class CarController : MonoBehaviour
         rotationAngle -= steeringInput * turnFactor;
         rigidBody2D.MoveRotation(rotationAngle);
     }
-
+    
+    void ApplyBraking()
+    {
+        if (!isBraking)
+        {
+            return;
+        }
+        if (rigidBody2D.linearVelocity.magnitude > 0.1f)
+        {
+            // add opposing force to brake
+            Vector2 brakeForce = -rigidBody2D.linearVelocity.normalized * brakeFactor;
+            rigidBody2D.AddForce(brakeForce, ForceMode2D.Force);
+        }
+    }
+    
     void HandleSkidMarks()
     {
-        bool turning = Mathf.Abs(steeringInput) > 0.1f;
+        bool isTurning = Mathf.Abs(steeringInput) > 0.1f;
         float speed = rigidBody2D.linearVelocity.magnitude;
 
-        if (turning && speed > minSpeed && Time.time > lastStampTime + stampSpacing)
+        if ((isTurning||isBraking) && speed > minSpeed && Time.time > lastStampTime + stampSpacing)
         {
             Instantiate(skidPrefab, wheelPosition.position, wheelPosition.rotation);
             lastStampTime = Time.time;
         }
     }
-
     public void SetInputVector(Vector2 inputVector)
     {
         steeringInput = inputVector.x;
         accellerationInput = inputVector.y;
+    }
+    
+    public void SetBrakeInput(bool braking)
+    {
+        isBraking = braking;
     }
 }

@@ -19,7 +19,9 @@ public class CarInputHandler : MonoBehaviour
 
         inputVector.x = Input.GetAxis("Horizontal");
         inputVector.y = Input.GetAxis("Vertical");
-
         carController.SetInputVector(inputVector);
+        
+        bool isBraking = Input.GetKey(KeyCode.Q);
+        carController.SetBrakeInput(isBraking);
     }
 }
