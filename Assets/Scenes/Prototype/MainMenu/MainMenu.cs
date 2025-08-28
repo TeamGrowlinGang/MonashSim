@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Loads from lvl 0 by adding 1 sequentially.
     }
-
+    
     public void QuitGame()
     {
         Application.Quit();
