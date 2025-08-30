@@ -21,7 +21,7 @@ public class CarInputHandler : MonoBehaviour
         inputVector.y = Input.GetAxis("Vertical");
         carController.SetInputVector(inputVector);
         
-        bool isBraking = Input.GetKey(KeyCode.Q);
+        bool isBraking = Input.GetKey(KeyCode.LeftShift);
         carController.SetBrakeInput(isBraking);
     }
 }
