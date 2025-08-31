@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class RoadMarkMover : MonoBehaviour
+public class CarMover : MonoBehaviour
 {
     public float moveSpeed;
     public float deadZone;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        moveSpeed = 2f;
+        moveSpeed = 1f;
         deadZone = -7;
     }
 
